@@ -3,7 +3,7 @@
 var React = require('react-native');
 var {NativeModules} = React;
 
-var FIRMessaging = NativeModules.RNFIRMessaging;
+var FIRStorage = NativeModules.RNFIRMessaging;
 
 class FCM {
 
@@ -14,12 +14,12 @@ class FCM {
     static requestPermissions() {
         return FIRMessaging.requestPermissions();
     }
-    
+
     static UploadFileToFirebase(){
         return FIRMessaging.UploadFileToFirebase(...arguments);
     }
-    
-      static getDimentionOfImage(){
+
+    static getDimentionOfImage(){
       return FIRMessaging.getDimentionOfImage(...arguments);
 
     };
@@ -27,8 +27,7 @@ class FCM {
 }
 
 
-FCM.initialData = FIRMessaging.initialData;
-FCM.initialAction = FIRMessaging.initialAction;
+FCM.initialData = FIRStorage.initialData;
+FCM.initialAction = FIRStorage.initialAction;
 
 module.exports = FCM;
-
