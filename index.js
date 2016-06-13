@@ -21,9 +21,7 @@ class FCM {
 
     static getDimentionOfImage(){
       return FIRMessaging.getDimentionOfImage(...arguments);
-
     };
-
 }
 
 

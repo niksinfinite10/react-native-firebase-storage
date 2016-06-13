@@ -1,26 +1,26 @@
 {
   "author": {
-    "name": "Libin Lu"
+    "name": "Nikhil Surati"
   },
   "bugs": {
-    "url": "https://github.com/evollu/react-native-fcm/issues"
+    "url": "https://github.com/niksinfinite10/react-native-firebase-storage/issues"
   },
   "description": "React Native bridge for firebase cloud messaging (FCM)",
   "devDependencies": {},
-  "homepage": "https://github.com/evollu/react-native-fcm",
+  "homepage": "https://github.com/niksinfinite10/react-native-firebase-storage",
   "keywords": [
     "React-Native",
     "ios",
     "android",
-    "fcm",
+    "react-native-firebase-storage",
     "firebase",
-    "cloud messaging"
+    "cloud Storage"
   ],
-  "license": "MIT",
-  "name": "react-native-fcm",
+  "license": "Nikhil Surati",
+  "name": "react-native-firebase-storage",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evollu/react-native-fcm.git"
+    "url": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git"
   },
   "version": "1.0.6"
 }
