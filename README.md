@@ -22,6 +22,10 @@ apply plugin: 'com.google.gms.google-services' // <- Add this line
 - In `android/app/src/main/AndroidManifest.xml`
 
 ```
+...
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+...
 <application
 android:theme="@style/AppTheme">
 
