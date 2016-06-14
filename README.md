@@ -104,23 +104,7 @@ this.fcmTokenLsnr.remove();
 }
 ```
 
-### Response to `click_action` in Android
-To allow android to respond to `click_action`, you need to define Activities and filter on specific intent. Since everything is running in MainActivity, you can have MainActivity to handle actions.
-```xml
-<activity
-  android:name=".MainActivity"
-  android:label="@string/app_name"
-  android:windowSoftInputMode="adjustResize"
-  android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
-  <intent-filter>
-      <action android:name="android.intent.action.MAIN" />
-      <category android:name="android.intent.category.LAUNCHER" />
-  </intent-filter>
-    <intent-filter>                                                       <--add this line
-        <action android:name="fcm.ACTION.HELLO" />                        <--add this line, name should match click_action
-        <category android:name="android.intent.category.DEFAULT" />       <--add this line
-    </intent-filter>                                                      <--add this line
-</activity>
+
 ```
 and pass intent into package, change MainActivity.java
 ```java
