@@ -1,4 +1,4 @@
-package com.evollu.react.fcm;
+package com.evollu.react.firebaseStorage;
 
 import android.content.Intent;
 
@@ -26,7 +26,7 @@ public class FIRStoragePackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new FIRMessagingModule(reactContext, mIntent));
+        modules.add(new FirebaseStorageModule(reactContext, mIntent));
         return modules;
     }
 

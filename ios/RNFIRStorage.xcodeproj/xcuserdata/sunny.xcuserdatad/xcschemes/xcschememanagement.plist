@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>RNFIRMessaging.xcscheme</key>
+		<key>RNFIRStorage.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>58B511DA1A9E6C8500147676</key>
+		<key>A36E04E61D0E60FD007F1B94</key>
 		<dict>
 			<key>primary</key>
 			<true/>

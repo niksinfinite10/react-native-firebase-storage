@@ -6,10 +6,7 @@
 #import "RCTBridgeModule.h"
 
 
-extern NSString *const FCMNotificationReceived;
+@interface RNFIRStorage : NSObject <RCTBridgeModule>
 
-@interface RNFIRMessaging : NSObject <RCTBridgeModule>
-
-@property (nonatomic, assign) bool connectedToFCM;
 
 @end

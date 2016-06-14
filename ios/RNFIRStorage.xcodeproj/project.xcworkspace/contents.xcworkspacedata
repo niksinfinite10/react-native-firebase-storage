@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/libinlu/Code/react-native-gcm/ios/RNGCM.xcodeproj">
+      location = "self:RNFIRStorage.xcodeproj">
    </FileRef>
 </Workspace>

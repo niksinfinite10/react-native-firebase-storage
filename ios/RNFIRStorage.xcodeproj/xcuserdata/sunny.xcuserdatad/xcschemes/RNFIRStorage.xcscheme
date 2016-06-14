@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "58B511DA1A9E6C8500147676"
-               BuildableName = "libRNFIRMessaging.a"
-               BlueprintName = "RNFIRMessaging"
-               ReferencedContainer = "container:RNFIRMessaging.xcodeproj">
+               BlueprintIdentifier = "A36E04E61D0E60FD007F1B94"
+               BuildableName = "libRNFIRStorage.a"
+               BlueprintName = "RNFIRStorage"
+               ReferencedContainer = "container:RNFIRStorage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "58B511DA1A9E6C8500147676"
-            BuildableName = "libRNFIRMessaging.a"
-            BlueprintName = "RNFIRMessaging"
-            ReferencedContainer = "container:RNFIRMessaging.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -54,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "58B511DA1A9E6C8500147676"
-            BuildableName = "libRNFIRMessaging.a"
-            BlueprintName = "RNFIRMessaging"
-            ReferencedContainer = "container:RNFIRMessaging.xcodeproj">
+            BlueprintIdentifier = "A36E04E61D0E60FD007F1B94"
+            BuildableName = "libRNFIRStorage.a"
+            BlueprintName = "RNFIRStorage"
+            ReferencedContainer = "container:RNFIRStorage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -72,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "58B511DA1A9E6C8500147676"
-            BuildableName = "libRNFIRMessaging.a"
-            BlueprintName = "RNFIRMessaging"
-            ReferencedContainer = "container:RNFIRMessaging.xcodeproj">
+            BlueprintIdentifier = "A36E04E61D0E60FD007F1B94"
+            BuildableName = "libRNFIRStorage.a"
+            BlueprintName = "RNFIRStorage"
+            ReferencedContainer = "container:RNFIRStorage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -1,4 +1,4 @@
-package com.evollu.react.fcm;
+package com.evollu.react.firebaseStorage;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class FirebaseStorageModule extends ReactContextBaseJavaModule {
+class FirebaseStorageModule extends ReactContextBaseJavaModule {
     private final static String TAG = FirebaseStorageModule.class.getCanonicalName();
 
     private StorageReference mStorageRef;
@@ -130,6 +130,7 @@ public class FirebaseStorageModule extends ReactContextBaseJavaModule {
             StorageReference photoRef  = mStorageRef.child(key);
             UploadTask uploadTask = photoRef.putBytes(data);
             // Observe state change events such as progress, pause, and resume
+
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
 
             @Override

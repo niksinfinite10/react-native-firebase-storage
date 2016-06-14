@@ -1,12 +1,68 @@
 {
+  "_args": [
+    [
+      {
+        "hosted": {
+          "directUrl": "https://raw.githubusercontent.com/niksinfinite10/react-native-firebase-storage/master/package.json",
+          "gitUrl": "git://github.com/niksinfinite10/react-native-firebase-storage.git",
+          "httpsUrl": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git",
+          "shortcut": "github:niksinfinite10/react-native-firebase-storage",
+          "ssh": "git@github.com:niksinfinite10/react-native-firebase-storage.git",
+          "sshUrl": "git+ssh://git@github.com/niksinfinite10/react-native-firebase-storage.git",
+          "type": "github"
+        },
+        "name": null,
+        "raw": "https://github.com/niksinfinite10/react-native-firebase-storage",
+        "rawSpec": "https://github.com/niksinfinite10/react-native-firebase-storage",
+        "scope": null,
+        "spec": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git",
+        "type": "hosted"
+      },
+      "/Users/sunny/Documents/github/veg-me/native/VegMeV3"
+    ]
+  ],
+  "_from": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git",
+  "_id": "react-native-firebase-storage@1.0.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/react-native-firebase-storage",
+  "_phantomChildren": {},
+  "_requested": {
+    "hosted": {
+      "directUrl": "https://raw.githubusercontent.com/niksinfinite10/react-native-firebase-storage/master/package.json",
+      "gitUrl": "git://github.com/niksinfinite10/react-native-firebase-storage.git",
+      "httpsUrl": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git",
+      "shortcut": "github:niksinfinite10/react-native-firebase-storage",
+      "ssh": "git@github.com:niksinfinite10/react-native-firebase-storage.git",
+      "sshUrl": "git+ssh://git@github.com/niksinfinite10/react-native-firebase-storage.git",
+      "type": "github"
+    },
+    "name": null,
+    "raw": "https://github.com/niksinfinite10/react-native-firebase-storage",
+    "rawSpec": "https://github.com/niksinfinite10/react-native-firebase-storage",
+    "scope": null,
+    "spec": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git",
+    "type": "hosted"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git#e8f4ea7634db73025c62e533e487d35f33df6311",
+  "_shasum": "6909dd5775ed49473ff339e7e11deccc1f214f9d",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/niksinfinite10/react-native-firebase-storage",
+  "_where": "/Users/sunny/Documents/github/veg-me/native/VegMeV3",
   "author": {
     "name": "Nikhil Surati"
   },
   "bugs": {
     "url": "https://github.com/niksinfinite10/react-native-firebase-storage/issues"
   },
+  "dependencies": {},
   "description": "React Native bridge for firebase cloud messaging (FCM)",
   "devDependencies": {},
+  "gitHead": "e8f4ea7634db73025c62e533e487d35f33df6311",
   "homepage": "https://github.com/niksinfinite10/react-native-firebase-storage",
   "keywords": [
     "React-Native",
@@ -18,6 +74,9 @@
   ],
   "license": "Nikhil Surati",
   "name": "react-native-firebase-storage",
+  "optionalDependencies": {},
+  "readme": "## Installation\n\n- Run `npm install react-native-fcm --save`\n- Run rnpm link\n\n### Android Configuration\n\n- In `android/build.gradle`\n```gradle\ndependencies {\nclasspath 'com.android.tools.build:gradle:2.0.0'\nclasspath 'com.google.gms:google-services:3.0.0' // <- Add this line\n```\n\n- In `android/app/build.gradle`\n```gradle\napply plugin: \"com.android.application\"\napply plugin: 'com.google.gms.google-services' // <- Add this line\n...\n```\n\n- In `android/app/src/main/AndroidManifest.xml`\n\n```\n<application\nandroid:theme=\"@style/AppTheme\">\n\n...\n<service android:name=\"com.evollu.react.fcm.MessagingService\">\n<intent-filter>\n<action android:name=\"com.google.firebase.MESSAGING_EVENT\"/>\n</intent-filter>\n</service>\n\n<service android:name=\"com.evollu.react.fcm.InstanceIdService\" android:exported=\"false\">\n<intent-filter>\n<action android:name=\"com.google.firebase.INSTANCE_ID_EVENT\"/>\n</intent-filter>\n</service>\n...\n```\n\n### IOS Configuration\n\ninstall pod 'Firebase/Messaging'\n\nin AppDelegate.m add\n```\n#import \"RNFIRMessaging.h\"\n...\n\n- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions\n{\n....\n[FIRApp configure]; <-- add this line\n}\n\n//add this\n- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {\n[[NSNotificationCenter defaultCenter] postNotificationName: FCMNotificationReceived\nobject:self\nuserInfo:notification];\n\n}\n\n//add this\n- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {\n[[NSNotificationCenter defaultCenter] postNotificationName:FCMNotificationReceived\nobject:self\nuserInfo:notification];\nhandler(UIBackgroundFetchResultNoData);\n}\n```\n\n\n### FCM config file\nIn [firebase console](https://console.firebase.google.com/), you can get `google-services.json` file and place it in `android/app` directory and get `googleServices-info.plist` file and place it in `/ios` directory\n\n## Usage\n\n```javascript\n\nvar FCM = require('react-native-fcm');\n\ncomponentWillMount() {\nFCM.requestPermissions();\nFCM.getFCMToken().then(token => {\n//store fcm token in your server\n});\nthis.fcmNotifLsnr = DeviceEventEmitter.addListener('FCMNotificationReceived', (notif) => {\n//there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload\n});\nthis.fcmTokenLsnr = DeviceEventEmitter.addListener('FCMTokenRefreshed', (token) => {\n//fcm token may not be available on first load, catch it here\n});\n}\n\ncomponentWillUnmount() {\n//prevent leak\nthis.fcmNotifLsnr.remove();\nthis.fcmTokenLsnr.remove();\n}\n\n}\n```\n\n### Response to `click_action` in Android\nTo allow android to respond to `click_action`, you need to define Activities and filter on specific intent. Since everything is running in MainActivity, you can have MainActivity to handle actions.\n```xml\n<activity\n  android:name=\".MainActivity\"\n  android:label=\"@string/app_name\"\n  android:windowSoftInputMode=\"adjustResize\"\n  android:configChanges=\"keyboard|keyboardHidden|orientation|screenSize\">\n  <intent-filter>\n      <action android:name=\"android.intent.action.MAIN\" />\n      <category android:name=\"android.intent.category.LAUNCHER\" />\n  </intent-filter>\n    <intent-filter>                                                       <--add this line\n        <action android:name=\"fcm.ACTION.HELLO\" />                        <--add this line, name should match click_action\n        <category android:name=\"android.intent.category.DEFAULT\" />       <--add this line\n    </intent-filter>                                                      <--add this line\n</activity>\n```\nand pass intent into package, change MainActivity.java\n```java\nnew FIRMessagingPackage(getIntent()),                                     <--add getIntent()\n```\n\n### Behaviour when sending `click_action` and `data` in notification\n- When app is not running when user clicks notification, notification data will be passed into \n - `FCM.initialAction`(contains `click_action` in notification payload\n - `FCM.initialData` (contains `data` payload if you send together with notification)\n\n- When app is running in background\n - IOS will receive notificaton from `FCMNotificationReceived` event\n - Android will reload the whole react app\n\n- When app is running in foreground\n - Both will receive notificaton from `FCMNotificationReceived` event\n\nNOTE: it is recommend not to rely on `data` payload for click_action as it can be overwritten. check [this](http://stackoverflow.com/questions/33738848/handle-multiple-notifications-with-gcm)\n\n## Q & A\n#### My android build is failing\nTry update your SDK and google play service\n#### I can't get notification data when app is killed?\nIf you send notification with `data` only, you can only get the data message when app is in foreground or background. Killed app doesn't trigger FCMNotificationReceived. Seems that is how FCM works today\n#### App running in background doesn't trigger `FCMNotificationReceived` when receiving hybrid notification [Android]\nThese is [an issue opened for that](https://github.com/google/gcm/issues/63). You will received data payload in FCM.initialData if you click on the notification. But if you just open the app, the data is lost.\n#### I can't get `notification` payload when my android app is in foreground\nIt is better to use data payload if you need to pass data into application. I haven't implemented notification payload bridging in android module and am not planning to (the SDK should post notification for you)\n#### Notification payload and data payload are mixed in iOS app.\nI'm not doing any filtering. Try to add some `type` attributes to differentiate data payload from APN notification\n#### App reloads when notification is clicked [Android]\nPreserve app status with asyncStorage should get around this. Still looking for solution\n### It is missing some features\nIssues and pull requests are welcomed. Let's make this thing better!\n\n",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/niksinfinite10/react-native-firebase-storage.git"

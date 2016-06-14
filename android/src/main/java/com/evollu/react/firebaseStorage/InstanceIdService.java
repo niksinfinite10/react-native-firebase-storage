@@ -1,4 +1,4 @@
-package com.evollu.react.fcm;
+package com.evollu.react.firebaseStorage;
 
 import android.content.Intent;
 import android.os.Bundle;
