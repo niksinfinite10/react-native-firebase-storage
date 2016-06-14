@@ -38,8 +38,13 @@ android:theme="@style/AppTheme">
   </intent-filter>
 </service>
 ...
-```
 
+```
+```
+and pass intent into package, change MainActivity.java
+```java
+new FIRStoragePackage(),              <--add getIntent()
+```
 ### IOS Configuration
 
 install pod 'Firebase/Messaging'
@@ -105,11 +110,7 @@ this.fcmTokenLsnr.remove();
 ```
 
 
-```
-and pass intent into package, change MainActivity.java
-```java
-new FIRStoragePackage(),              <--add getIntent()
-```
+
 
 ### Behaviour when sending `click_action` and `data` in notification
 - When app is not running when user clicks notification, notification data will be passed into 
