@@ -32,10 +32,10 @@ android:theme="@style/AppTheme">
 </intent-filter>
 </service>
 
-<service android:name="com.evollu.react.fcm.InstanceIdService" android:exported="false">
-<intent-filter>
-<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-</intent-filter>
+<service android:name="com.evollu.react.firebaseStorage.InstanceIdService" android:exported="false">
+  <intent-filter>
+    <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+  </intent-filter>
 </service>
 ...
 ```
