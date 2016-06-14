@@ -43,7 +43,7 @@ android:theme="@style/AppTheme">
 ```
 and pass intent into package, change MainActivity.java
 ```java
-new FIRStoragePackage(),              <--add getIntent()
+new FIRStoragePackage(),            
 ```
 ### IOS Configuration
 
