@@ -1,6 +1,6 @@
 ## Installation
 
-- Run `npm install react-native-fcm --save`
+- Run `npm install react-native-firebase-storage --save`
 - Run rnpm link
 
 ### Android Configuration
