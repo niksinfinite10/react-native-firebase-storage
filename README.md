@@ -124,7 +124,7 @@ To allow android to respond to `click_action`, you need to define Activities and
 ```
 and pass intent into package, change MainActivity.java
 ```java
-new FIRMessagingPackage(getIntent()),                                     <--add getIntent()
+new FIRStoragePackage(),              <--add getIntent()
 ```
 
 ### Behaviour when sending `click_action` and `data` in notification
