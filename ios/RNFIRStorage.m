@@ -58,6 +58,13 @@ RCT_REMAP_METHOD(uploadFileToFirebase,
                  resolve(@ {@"success": @"123"});
                  
              }];
+             
+               FIRStorageHandle observer = [uploadTask observeStatus:FIRStorageTaskStatusProgress
+            handler:^(FIRStorageTaskSnapshot *snapshot) {float progress = (float) snapshot.progress.totalUnitCount / snapshot.progress.completedUnitCount;
+                
+                [self.bridge.eventDispatcher sendAppEventWithName:@"FirebaseUploadProgressChanged" body: @{ @"progress": [NSNumber numberWithFloat:progress], @"key": key}];
+                    }];
+
 
             // ...
         }
