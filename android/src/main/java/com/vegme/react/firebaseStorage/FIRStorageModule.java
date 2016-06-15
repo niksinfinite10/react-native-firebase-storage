@@ -1,28 +1,22 @@
-package com.evollu.react.firebaseStorage;
+package com.vegme.react.firebaseStorage;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.RemoteMessage;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -51,8 +45,6 @@ class FirebaseStorageModule extends ReactContextBaseJavaModule {
 
         mIntent = intent;
 
-        registerTokenRefreshHandler();
-        registerMessageHandler();
     }
 
     @Override
@@ -78,17 +70,8 @@ class FirebaseStorageModule extends ReactContextBaseJavaModule {
         return "RNFIRStorage";
     }
 
-    @ReactMethod
-    public void requestPermissions(){
-    }
-
-    @ReactMethod
-    public void getFCMToken(Promise promise) {
-        Log.d(TAG, "Firebase token: " + FirebaseInstanceId.getInstance().getToken());
 
 
-        promise.resolve(FirebaseInstanceId.getInstance().getToken());
-    }
 
     private void sendEvent(String eventName, Object params) {
     getReactApplicationContext()
@@ -118,7 +101,7 @@ class FirebaseStorageModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void UploadFileToFirebase(String localFile, String contentType, String bucket, String key, final Promise promise) throws IOException {
+    public void uploadFileToFirebase(String localFile, String contentType, String bucket, String key, final Promise promise) throws IOException {
 
         Uri fileUri = Uri.parse(localFile);
         Bitmap bitmap =  getBitmapFromUri(fileUri);
@@ -159,45 +142,8 @@ class FirebaseStorageModule extends ReactContextBaseJavaModule {
    // [END upload_from_uri]
 
 
-    private void registerTokenRefreshHandler() {
-        IntentFilter intentFilter = new IntentFilter("com.evollu.react.fcm.FCMRefreshToken");
-        getReactApplicationContext().registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (getReactApplicationContext().hasActiveCatalystInstance()) {
-                    String token = intent.getStringExtra("token");
 
-                    WritableMap params = Arguments.createMap();
-                    params.putString("token", token);
 
-                    sendEvent("FCMTokenRefreshed", params);
-                    abortBroadcast();
-                }
-            }
-        }, intentFilter);
-    }
 
-    private void registerMessageHandler() {
-        IntentFilter intentFilter = new IntentFilter("com.evollu.react.fcm.ReceiveNotification");
 
-        getReactApplicationContext().registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (getReactApplicationContext().hasActiveCatalystInstance()) {
-                    RemoteMessage message = intent.getParcelableExtra("data");
-                    WritableMap params = Arguments.createMap();
-                    if(message.getData() != null){
-                        Map data = message.getData();
-                        Set<String> keysIterator = data.keySet();
-                        for(String key: keysIterator){
-                            params.putString(key, (String) data.get(key));
-                        }
-                        sendEvent("FCMNotificationReceived", params);
-                        abortBroadcast();
-                    }
-
-                }
-            }
-        }, intentFilter);
-    }
 }

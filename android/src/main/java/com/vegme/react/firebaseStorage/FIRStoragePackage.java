@@ -1,4 +1,4 @@
-package com.evollu.react.firebaseStorage;
+package com.vegme.react.firebaseStorage;
 
 import android.content.Intent;
 
