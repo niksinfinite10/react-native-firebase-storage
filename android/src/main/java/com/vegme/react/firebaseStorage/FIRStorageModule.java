@@ -118,7 +118,8 @@ class FirebaseStorageModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                float progress = (taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                //float progress = (taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                double progress = 100.0 * (taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
                 sendEvent("FirebaseUploadProgressChanged", progress);
                 System.out.println("Upload is " + progress + "% done");
             }
