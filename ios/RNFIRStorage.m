@@ -6,10 +6,7 @@
 #import "RCTUtils.h"
 @import Photos;
 //@import FirebaseStorage;
-
-
-
-
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation RNFIRStorage
 @synthesize bridge = _bridge;
@@ -28,54 +25,49 @@ RCT_EXPORT_MODULE();
 
 
 
-RCT_REMAP_METHOD(UploadFileToFirebase,
+RCT_REMAP_METHOD(uploadFileToFirebase,
                  : (NSString*) localFile
                  : (NSString*) contentType
                  : (NSString*) bucket
                  : (NSString*) key
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject){
-  NSURL *url = [[NSURL alloc] initWithString:localFile];
-  PHFetchResult* assets = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
-  PHAsset *asset = [assets firstObject];
-  [asset requestContentEditingInputWithOptions:nil
-                             completionHandler:^(PHContentEditingInput *contentEditingInput,
-                                                 NSDictionary *info) {
-                               NSURL *imageFile = contentEditingInput.fullSizeImageURL;
+    NSURL *url = [[NSURL alloc] initWithString:localFile];
+    
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    [assetsLibrary assetForURL:url resultBlock: ^(ALAsset *asset){
+        ALAssetRepresentation *representation = [asset defaultRepresentation];
+        CGImageRef imageRef = [representation fullScreenImage];
+        if (imageRef) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+            imageView.image = [UIImage imageWithCGImage:imageRef scale:representation.scale orientation:representation.orientation];
+            
+            
+            NSData *imageData =  UIImageJPEGRepresentation (imageView.image, 60);
+            FIRStorage *storage = [FIRStorage storage];
+            FIRStorageReference *storageRef = [storage referenceForURL:bucket];
+            
+            [[storageRef child:key]
+             putData:imageData metadata:nil
+             completion:^(FIRStorageMetadata *metadata, NSError *error) {
+                 if (error) {
+                     NSLog(@"Error uploading: %@", error);
+                     reject(@"Error", @"Failed upload file to firebase", error);
+                     return;
+                 }
+                 resolve(@ {@"success": @"123"});
+                 
+             }];
 
-
-  FIRStorage *storage = [FIRStorage storage];
-  // Create a storage reference from our storage service
-  FIRStorageReference *storageRef = [storage referenceForURL:bucket];
-
-
-  // Create a reference to the file you want to upload
-  //NSString *storageLocation = [@"images/" stringByAppendingString:key];
-  FIRStorageReference *riversRef = [storageRef child:key];
-
-  // Upload the file to the path "images/rivers.jpg"
-  FIRStorageUploadTask *uploadTask = [riversRef putFile:imageFile metadata:nil completion:^(FIRStorageMetadata *metadata, NSError *error) {
-    if (error != nil) {
-      // Uh-oh, an error occurred!
-      NSLog(@"Error in Uploading File to Firebase", error);
-      reject(@"Error", @"Failed upload file to firebase", error);
-    } else {
-      // Metadata contains file metadata such as size, content-type, and download URL.
-      NSURL *downloadURL = metadata.downloadURL;
-      NSLog(@"Successfully uploaded File to Firebase", metadata);
-      resolve(@ {@"downloadURL": downloadURL});
-    }
-  }];
-
-  FIRStorageHandle observer = [uploadTask observeStatus:FIRStorageTaskStatusProgress
-                                                handler:^(FIRStorageTaskSnapshot *snapshot) {
-
-                                                  float progress = (float) snapshot.progress.totalUnitCount / snapshot.progress.completedUnitCount;
-                                                  [self.bridge.eventDispatcher sendAppEventWithName:@"FirebaseUploadProgressChanged" body: @{ @"progress": [NSNumber numberWithFloat:progress], @"key": key}];
-
-                                                }];
-                             }];
-
+            // ...
+        }
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Error Loading File: %@", error);
+        reject(@"Error", @"Failed Open File", error);
+    }];
+    
+    
+    
 }
 
 @end
