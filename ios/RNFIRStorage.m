@@ -47,7 +47,7 @@ RCT_REMAP_METHOD(uploadFileToFirebase,
             FIRStorage *storage = [FIRStorage storage];
             FIRStorageReference *storageRef = [storage referenceForURL:bucket];
             
-            [[storageRef child:key]
+             FIRStorageUploadTask *uploadTask = [[storageRef child:key]
              putData:imageData metadata:nil
              completion:^(FIRStorageMetadata *metadata, NSError *error) {
                  if (error) {
