@@ -50,6 +50,7 @@ RCT_REMAP_METHOD(uploadFileToFirebase,
              FIRStorageUploadTask *uploadTask = [[storageRef child:key]
              putData:imageData metadata:nil
              completion:^(FIRStorageMetadata *metadata, NSError *error) {
+                 [self.bridge.eventDispatcher sendAppEventWithName:@"FirebaseUploadProgressChanged" body: @{ @"progress": [NSNumber numberWithInteger:1], @"key": key}];
                  if (error) {
                      NSLog(@"Error uploading: %@", error);
                      reject(@"Error", @"Failed upload file to firebase", error);
