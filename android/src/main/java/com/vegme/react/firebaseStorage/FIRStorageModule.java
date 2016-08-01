@@ -21,7 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
+import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -32,36 +32,18 @@ import java.util.Set;
 public class FIRStorageModule extends ReactContextBaseJavaModule {
     private final static String TAG = FIRStorageModule.class.getCanonicalName();
 
-    private StorageReference mStorageRef;
-    private Uri mDownloadUrl = null;
-    private Uri mFileUri = null;
-    //private FirebaseAuth mAuth;
 
-    Intent mIntent;
+
+
 
 
     public FIRStorageModule(ReactApplicationContext reactContext, Intent intent) {
         super(reactContext);
-
-        mIntent = intent;
-
     }
 
     @Override
     public Map<String, Object> getConstants() {
         Map<String, Object> constants = new HashMap<>();
-        if (mIntent != null) {
-            if(mIntent.getExtras() != null) {
-                Map<String, Object> extra = new HashMap<>();
-                Bundle data = mIntent.getExtras();
-                Set<String> keysIterator = data.keySet();
-                for(String key: keysIterator){
-                    extra.put(key, data.get(key));
-                }
-                constants.put("initialData", extra);
-            }
-            constants.put("initialAction", mIntent.getAction());
-        }
         return constants;
     }
 
@@ -88,28 +70,18 @@ public class FIRStorageModule extends ReactContextBaseJavaModule {
         return image;
     }
 
-    @ReactMethod
-    public void getDimentionOfImage(String localFile,Promise promise) throws IOException {
-        Uri fileUri = Uri.parse(localFile);
-        Bitmap bitmap =  getBitmapFromUri(fileUri);
-        WritableMap map = Arguments.createMap();
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        map.putInt("width",width);
-        map.putInt("height",height);
-        promise.resolve(map);
-    }
+
 
     @ReactMethod
     public void uploadFileToFirebase(String localFile, String contentType, String bucket, String key, final Promise promise) throws IOException {
-
+        Log.d(TAG, "Android uploadFileToFirebase() localfile = "+ localFile + "contentType = "+ contentType + " bucket = " + bucket + " key = " + key);
         Uri fileUri = Uri.parse(localFile);
         Bitmap bitmap =  getBitmapFromUri(fileUri);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
         byte[] data = baos.toByteArray();
 
-            mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(bucket);
+            StorageReference mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(bucket);
             StorageReference photoRef  = mStorageRef.child(key);
             UploadTask uploadTask = photoRef.putBytes(data);
             // Observe state change events such as progress, pause, and resume
@@ -126,13 +98,16 @@ public class FIRStorageModule extends ReactContextBaseJavaModule {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
+                Log.d(TAG, "Error in uploadFileToFirebase() exception " + exception.toString());
                 promise.reject(exception.toString());
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Log.d(TAG, "Android uploadFileToFirebase() Successfully uploaded " + downloadUrl.toString());
                 promise.resolve(downloadUrl.toString());
             }
         });
