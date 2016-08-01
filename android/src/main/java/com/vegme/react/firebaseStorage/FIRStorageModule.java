@@ -29,8 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-class FirebaseStorageModule extends ReactContextBaseJavaModule {
-    private final static String TAG = FirebaseStorageModule.class.getCanonicalName();
+public class FIRStorageModule extends ReactContextBaseJavaModule {
+    private final static String TAG = FIRStorageModule.class.getCanonicalName();
 
     private StorageReference mStorageRef;
     private Uri mDownloadUrl = null;
@@ -40,7 +40,7 @@ class FirebaseStorageModule extends ReactContextBaseJavaModule {
     Intent mIntent;
 
 
-    public FirebaseStorageModule(ReactApplicationContext reactContext, Intent intent) {
+    public FIRStorageModule(ReactApplicationContext reactContext, Intent intent) {
         super(reactContext);
 
         mIntent = intent;
