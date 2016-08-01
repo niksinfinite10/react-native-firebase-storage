@@ -26,7 +26,7 @@ public class FIRStoragePackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new FirebaseStorageModule(reactContext, mIntent));
+        modules.add(new FIRStorageModule(reactContext, mIntent));
         return modules;
     }
 
