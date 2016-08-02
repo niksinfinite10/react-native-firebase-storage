@@ -13,20 +13,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class FIRStoragePackage implements ReactPackage {
-    Intent mIntent;
-
-    public FIRStoragePackage(){
-    }
-
-    public FIRStoragePackage(Intent intent){
-        mIntent = intent;
-    }
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new FIRStorageModule(reactContext, mIntent));
+        modules.add(new FIRStorageModule(reactContext));
         return modules;
     }
 
