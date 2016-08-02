@@ -32,12 +32,7 @@ import java.util.Set;
 public class FIRStorageModule extends ReactContextBaseJavaModule {
     private final static String TAG = FIRStorageModule.class.getCanonicalName();
 
-
-
-
-
-
-    public FIRStorageModule(ReactApplicationContext reactContext, Intent intent) {
+    public FIRStorageModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
@@ -51,9 +46,6 @@ public class FIRStorageModule extends ReactContextBaseJavaModule {
     public String getName() {
         return "RNFIRStorage";
     }
-
-
-
 
     private void sendEvent(String eventName, Object params) {
     getReactApplicationContext()
@@ -111,15 +103,5 @@ public class FIRStorageModule extends ReactContextBaseJavaModule {
                 promise.resolve(downloadUrl.toString());
             }
         });
-
-
-//
    }
-   // [END upload_from_uri]
-
-
-
-
-
-
 }
