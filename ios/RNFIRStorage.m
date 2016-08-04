@@ -43,7 +43,7 @@ RCT_REMAP_METHOD(uploadFileToFirebase,
             imageView.image = [UIImage imageWithCGImage:imageRef scale:representation.scale orientation:representation.orientation];
             
             
-            NSData *imageData =  UIImageJPEGRepresentation (imageView.image, 60);
+            NSData *imageData =  UIImageJPEGRepresentation (imageView.image, 80);
             FIRStorage *storage = [FIRStorage storage];
             FIRStorageReference *storageRef = [storage referenceForURL:bucket];
             
