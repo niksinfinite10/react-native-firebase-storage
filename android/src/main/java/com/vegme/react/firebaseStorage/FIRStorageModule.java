@@ -70,7 +70,7 @@ public class FIRStorageModule extends ReactContextBaseJavaModule {
         Uri fileUri = Uri.parse(localFile);
         Bitmap bitmap =  getBitmapFromUri(fileUri);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] data = baos.toByteArray();
 
             StorageReference mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(bucket);
