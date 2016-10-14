@@ -46,9 +46,12 @@ RCT_REMAP_METHOD(uploadFileToFirebase,
             NSData *imageData =  UIImageJPEGRepresentation (imageView.image, 80);
             FIRStorage *storage = [FIRStorage storage];
             FIRStorageReference *storageRef = [storage referenceForURL:bucket];
+          
+            FIRStorageMetadata *metadata = [[FIRStorageMetadata alloc] init];
+            metadata.contentType = contentType;
             
              FIRStorageUploadTask *uploadTask = [[storageRef child:key]
-             putData:imageData metadata:nil
+             putData:imageData metadata:metadata
              completion:^(FIRStorageMetadata *metadata, NSError *error) {
                  [self.bridge.eventDispatcher sendAppEventWithName:@"FirebaseUploadProgressChanged" body: @{ @"progress": [NSNumber numberWithInteger:1], @"key": key}];
                  if (error) {
