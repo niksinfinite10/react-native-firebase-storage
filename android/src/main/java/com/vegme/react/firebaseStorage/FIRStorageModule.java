@@ -18,6 +18,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -74,8 +75,11 @@ public class FIRStorageModule extends ReactContextBaseJavaModule {
         byte[] data = baos.toByteArray();
 
             StorageReference mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(bucket);
+            StorageMetadata metadata = new StorageMetadata.Builder()
+                                        .setContentType(contentType)
+                                        .build();
             StorageReference photoRef  = mStorageRef.child(key);
-            UploadTask uploadTask = photoRef.putBytes(data);
+            UploadTask uploadTask = photoRef.putBytes(data, metadata);
             // Observe state change events such as progress, pause, and resume
 
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
