@@ -67,19 +67,16 @@ public class FIRStorageModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void uploadFileToFirebase(String localFile, String contentType, String bucket, String key, final Promise promise) throws IOException {
-        Log.d(TAG, "Android uploadFileToFirebase() localfile = "+ localFile + "contentType = "+ contentType + " bucket = " + bucket + " key = " + key);
+              Log.d(TAG, "Android uploadFileToFirebase() localfile = "+ localFile + "contentType = "+ contentType + " bucket = " + bucket + " key = " + key);
         Uri fileUri = Uri.parse(localFile);
-        Bitmap bitmap =  getBitmapFromUri(fileUri);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        byte[] data = baos.toByteArray();
 
-            StorageReference mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(bucket);
-            StorageMetadata metadata = new StorageMetadata.Builder()
-                                        .setContentType(contentType)
-                                        .build();
-            StorageReference photoRef  = mStorageRef.child(key);
-            UploadTask uploadTask = photoRef.putBytes(data, metadata);
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(bucket);
+        StorageMetadata metadata = new StorageMetadata.Builder()
+                                    .setContentType(contentType)
+                                    .build();
+        StorageReference photoRef  = mStorageRef.child(key);
+        UploadTask uploadTask = photoRef.putFile(fileUri, metadata);
+        
             // Observe state change events such as progress, pause, and resume
 
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
